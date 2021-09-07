@@ -57,15 +57,25 @@ pickle.dump( master_index, open( "master_idxfile.txt", "wb" ) )
 master_index = pickle.load( open( "master_idxfile.txt", "rb" ) )
 
 # Write your code here
-concordList = []
 def concordance(word, master_index, window):
-    for file in get_files("Selma", ".txt"):
-        f = open('Selma/' + file, 'r')
-        data = f.read().lower().strip()
-        for filename in master_index[word]:
-            print(filename)
-            #for wordIndex in indList:
-                #print(wordIndex)
-                #concordList.append(data[wordIndex-window:wordIndex+window])
-    #return concordList
-    
+    concordList = ''
+    for filename, indList in master_index[word].items():
+        concordList += filename + '\n'
+        f = open('Selma/' + filename, 'r')
+        data = f.read().lower().replace('\n', ' ')
+        for wordIndex in indList:
+            concordList += (data[wordIndex-window:wordIndex+window]) + '\n'
+    print(concordList)
+
+
+# Write your code here
+tfidf = {}
+for filename in get_files("Selma", ".txt"):
+    f = open('Selma/' + filename, 'r')
+    data = f.read().lower().replace('\n', ' ')
+    for word, occurances in master_index.items():
+        # Regex to count words?
+        tf = len(occurances) / len(master_index[word])
+        idf = math.log10(len(get_files("Selma", ".txt")) / len(master_index[word]))
+        comb = tf * idf
+        tfidf.setdefault(word, {})[filename] = comb
