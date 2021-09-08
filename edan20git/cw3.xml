@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC
+        "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Assignment #3: Language detection</title>
+    </head>
+    <body>
+        <!--<h1>Assignment #3: Extracting noun groups using machine learning techniques</h1>-->
+        <p>In this assignment, you will implement a language detector inspired from Google's <i>Compact language
+            detector</i>, version 3 (CLD3): https://github.com/google/cld3.
+            CLD3 is written in C++ and its code is available from GitHub.
+        </p>
+        <h2>Objectives</h2>
+        <p>The objectives of the assignment are to:</p>
+        <ul>
+            <li>Write a program to classify languages</li>
+            <li>Use neural networks</li>
+            <li>Know what a classifier is</li>
+            <li>Write a short report of 1 to 2 pages to describe your program. You will notably comment the performance
+                you obtained and how you could improve it.
+            </li>
+        </ul>
+        <h2>Organization and location</h2>
+        <p>The third lab session (lab 2) will take place on</p>
+        <ol>
+            <li>Group 1, September 21, 2021, 13:15 to 15:00, in the Beta room,
+                <br/>
+                Discord link: https://discord.gg/83wWpF7
+                <br/>
+            </li>
+            <li>group 2, September 21, 2021, 13:15 to 15:00, in the Gamma room,
+                <br/>
+                Discord link: https://discord.gg/83wWpF7
+                <br/>
+            </li>
+            <li>group 3, September 21, 2021, 15:15 to 17:00, in the Gamma room,
+                <br/>
+                Discord link: https://discord.gg/83wWpF7
+                <br/>
+            </li>
+            <li>group 4, September 22, 2021, 13:15 to 15:00, in the Alpha room,
+                <br/>
+                Discord link: https://discord.gg/83wWpF7
+                <br/>
+            </li>
+            <li>group 5, September 22, 2021, 13:15 to 15:00, in the Varg room,
+                <br/>
+                Discord link: https://discord.gg/83wWpF7
+                <br/>
+            </li>
+            <li>group 6, September 22, 2021, 15:15 to 17:00, in the Alpha room.
+                <br/>
+                Discord link: https://discord.gg/83wWpF7
+                <br/>
+            </li>
+            <li>group 7, SSeptember 22, 2021, 15:15 to 17:00, in the Varg room.
+                <br/>
+                Discord link: https://discord.gg/83wWpF7
+                <br/>
+            </li>
+        </ol>
+        <p>There can be last minute changes. Please always check the official times here:
+            <a
+                    href="https://cloud.timeedit.net/lu/web/lth1/ri1X50gQ6560YfQQ15Z5771Y0Zy7007335Y67Q565.html">
+                https://cloud.timeedit.net/lu/web/lth1/ri1Q5006.html
+            </a>
+        </p>
+        <p>You can work alone or collaborate with another student.</p>
+        <p>Each group will have to:</p>
+        <ul>
+            <li>Write a Python program.</li>
+            <li>Check the results and comment them briefly</li>
+        </ul>
+        <h2>Content of the lab</h2>
+        <p>
+            The text of the lab is in the language detector notebook available here
+            <a href="https://github.com/pnugues/edan20/tree/master/notebooks">
+                https://github.com/pnugues/edan20/tree/master/notebooks
+            </a>
+        </p>
+        <h2>Turning in the assignment</h2>
+        <p>When are done with the program and to complete the assignment, you will:</p>
+        <ol>
+            <li>Write a short individual report on your program. Do not forget to:
+                <ul>
+                    <li>Summarize CLD3 and outline its architecture</li>
+                    <li>Identify the features used by CLD3</li>
+                    <li>Include the feature matrix you computed manually</li>
+                </ul>
+            </li>
+        </ol>
+        <p>You will submit your report as well as your notebook (for archiving purposes) to Canvas:
+            <a href="https://canvas.education.lu.se/">https://canvas.education.lu.se/</a>. To write your report, you can
+            either:
+        </p>
+        <ol>
+            <li>Write directly your text in Canvas, or</li>
+            <li>Use Latex and Overleaf (<a href="https://www.overleaf.com">https://www.overleaf.com</a>). This will
+                probably help you structure your text. You will
+                then upload a PDF file in Canvas.
+            </li>
+        </ol>
+        <p>The submission deadline is October 1st, 2021.</p>
+    </body>
+</html>

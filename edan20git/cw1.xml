@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC
+        "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Assignment #1: Building an Inverted Index</title>
+    </head>
+    <body>
+        <!--<h1>Assignment #1: Building an Inverted Index</h1>-->
+        <h2>Objectives</h2>
+        <p>The objectives of this assignment are to:</p>
+        <ul>
+            <li>Write a program that collects all the words from a set of documents</li>
+            <li>Build an index from the words</li>
+            <li>Know what indexing is</li>
+            <li>Represent a document using the Tf.Idf value</li>
+            <li>Write a short report of 1 to 2 pages on the assignment</li>
+            <li>Read a short text on an industrial system</li>
+        </ul>
+
+        <h2>Organization and location</h2>
+        <p>The second lab session (lab 1) will take place on</p>
+        <ol>
+            <li>Group 1, September 8, 2020, 10:15 to 12:00, in the Alpha room,
+                <br/>
+                Discord link: https://discord.gg/83wWpF7
+                <br/>
+            </li>
+            <li>group 2, September 8, 2020, 13:15 to 15:00, in the Alpha room,
+                <br/>
+                Discord link: https://discord.gg/83wWpF7
+                <br/>
+            </li>
+            <li>group 3, September 9, 2020, 13:15 to 15:00, in the Val room,
+                <br/>
+                Discord link: https://discord.gg/83wWpF7
+                <br/>
+            </li>
+            <li>group 4, September 9, 2020, 13:15 to 15:00, in the Falk rooms,
+                <br/>
+                Discord link: https://discord.gg/83wWpF7
+                <br/>
+            </li>
+            <li>group 5, September 9, 2020, 15:15 to 17:00, in the Val room,
+                <br/>
+                Discord link: https://discord.gg/83wWpF7
+                <br/>
+            </li>
+            <li>group 6, September 9, 2020, 15:15 to 17:00, in the Falk room.
+                <br/>
+                Discord link: https://discord.gg/83wWpF7
+                <br/>
+            </li>
+        </ol>
+        <p>There can be last minute changes. Please always check the official times here:
+            <a
+                    href="https://cloud.timeedit.net/lu/web/lth1/ri1X50gQ5560YfQQ15Z5772Y0Zy7007335Y67Q565.html">
+                https://cloud.timeedit.net/lu/web/lth1/ri1Q5006.html
+            </a>
+        </p>
+        <p>You can work alone or collaborate with another student.</p>
+        <p>Each group will have to:</p>
+        <ul>
+            <li>Write a Python program.</li>
+            <li>Check the results and comment them briefly</li>
+        </ul>
+        <h2>Content of the lab</h2>
+        <p>
+            The text of the lab is in the indexer notebook available here
+            <a href="https://github.com/pnugues/edan20/tree/master/notebooks">
+                https://github.com/pnugues/edan20/tree/master/notebooks
+            </a>
+        </p>
+        <h2>Turning in your assignment</h2>
+        <p>When your are done with the program, you will:</p>
+        <ol>
+            <li>Write a short individual report on your program,</li>
+            <li>
+                Read the text <i>Challenges in Building Large-Scale Information Retrieval Systems</i> about the history
+                of <a href="https://research.google.com/people/jeff/WSDM09-keynote.pdf">Google indexing</a> by <a
+                    href="https://research.google.com/pubs/jeff.html">Jeff Dean
+            </a> and write a short comment on it. See the details below.
+            </li>
+        </ol>
+        <p>You will submit your report as well as your notebook (for archiving purposes) to Canvas: <a href="https://canvas.education.lu.se/">https://canvas.education.lu.se/</a>.
+            To write your report, you can either
+        </p>
+        <ol>
+            <li>Write directly your text in Canvas, or</li>
+            <li>Use Latex and Overleaf (<a href="https://www.overleaf.com/">
+                www.overleaf.com</a>). This will probably help you structure your text. You will then upload a PDF file
+                in Canvas.
+            </li>
+        </ol>
+        <p>In your report of about two pages:</p>
+        <ol>
+            <li>You will describe your indexer and comment your results;</li>
+            <li>You will tell how your index encoding is related to what Google did;
+            </li>
+            <li>You will identify the slide where you have the most similar indexing
+                technique and write the slide title and the slide number in your report.
+            </li>
+        </ol>
+        <p>The submission deadline is September 17, 2021.</p>
+        <!--<h2>Preparation</h2>
+        <ol>
+            <li>Download the <a href="https://github.com/pnugues/ilppp/raw/master/programs/corpus/Selma.zip">Selma
+                folder</a> and uncompress it. It contains novels by <a href="https://sv.wikipedia.org/wiki/Selma_Lagerl%C3%B6f">
+                Selma Lagerlöf</a>. The text of these novels was extracted
+                from <a href="https://litteraturbanken.se/forfattare/LagerlofS/titlar">Lagerlöf arkivet</a> at
+                <a href="https://litteraturbanken.se/">Litteraturbanken</a>.
+            </li>
+            <li>Read the description of the tf-idf measure on Wikipedia
+                (<a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">https://en.wikipedia.org/wiki/Tf-idf</a>).
+            </li>
+        </ol>
+
+        <h2>Programming the Indexer</h2>
+        <p>Your program will take a corpus as input (here the Selma novels) and
+            produce an index of all the words with their positions. you should be able to run it this way:
+        </p>
+        <pre>$ python indexer.py folder_name</pre>
+        <p>Conceptually, the index will consist of rows with one word per row and
+            and the list of files and positions, where this word occurs. Such a row is
+            called a posting list.
+            You will encode the position of a word by the number of characters from the start of the file.
+        </p>
+        <pre>
+word1: file_name pos1 pos2 pos3... file_name pos1 pos2 ...
+word2: file_name pos1 pos2 pos3... file_name pos1 pos2 ...
+...
+        </pre>
+        <p>To make programming easier, you will split this exercise into three steps and you will use
+            dictionaries to represent the postings.
+        </p>
+        <h3>Indexing one file</h3>
+        <p>Write a program that reads one document <tt>file_name.txt</tt> and outputs an index file:
+            <tt>file_name.idx</tt>:
+        </p>
+        <ol>
+            <li>The index file will contain all the unique words in the document,
+                where each word is associated with the list of its positions in the document.
+            </li>
+            <li>You will represent this index as a dictionary where the keys will be the words and
+                the values, the lists of positions
+            </li>
+            <li>As words, you will consider all the strings of letters that you will set in lower case.
+                You will not index the rest (i.e. numbers, punctuations, or symbols).
+            </li>
+            <li>To extract the words, you will use Unicode regular expressions. Do not use <tt>\w+</tt>,
+                for instance, but the Unicode equivalent.
+            </li>
+            <li>The word positions will correspond to the number of characters from the beginning of the file.
+                (The word offset from the beginning)
+            </li>
+            <li>You will use <tt>finditer()</tt> to find the positions of the words.
+                This will return you match objects,
+                where you will get the matches and the positions with
+                the <tt>group()</tt> and <tt>start()</tt> methods.
+            </li>
+            <li>You will use the pickle package to write your dictionary in an file,
+                see <a href="https://wiki.python.org/moin/UsingPickle">https://wiki.python.org/moin/UsingPickle</a>.
+            </li>
+        </ol>
+        <p>Below is an excerpt of the index of the bannlyst text for the words <i>gjord</i>, <i>uppklarnande</i>, and
+            <i>stjärnor</i>. The data is stored in a dictionary:
+        </p>
+        <pre>
+{...
+'gjord': [8600, 183039, 220445],
+'uppklarnande': [8617],
+'stjärnor': [8641], ...
+}
+        </pre>
+        <p>The word <i>gjord</i> occurs three times in the text at positions 8600, 183039, and 220445, <i>uppklarnande</i>, once at
+            position 8617, and <i>stjärnor</i>, once at position 8641.
+        </p>
+        <h3>Reading the content of a folder</h3>
+        <p>Write a function that reads all the files in a folder with a specific suffix (txt). You will need the Python
+            os package,
+            see <a href="https://docs.python.org/3/library/os.html">https://docs.python.org/3/library/os.html</a>. You
+            will return the file names in a list.
+        </p>
+        <p>You can reuse this function:</p>
+        <pre>
+        def get_files(dir, suffix):
+            """
+            Returns all the files in a folder ending with suffix
+            :param dir:
+            :param suffix:
+            :return: the list of file names
+            """
+            files = []
+            for file in os.listdir(dir):
+                if file.endswith(suffix):
+                    files.append(file)
+            return files
+        </pre>
+
+        <h3>Creating a master index</h3>
+        <p>Complete your program with the creation of master index, where you will associate each word
+            of the corpus with the files, where it occur and its positions. (a posting list)
+        </p>
+        <p>Below is an except of the master index with the words <i>samlar</i> and <i>ände</i>:
+        </p>
+        <pre>
+'samlar':
+            {'troll.txt': [641880, 654233],
+            'nils.txt': [51805, 118943],
+            'osynliga.txt': [399121],
+            'gosta.txt': [313784, 409998, 538165]}
+'ände':
+            {'troll.txt': [39562, 650112],
+            'kejsaren.txt': [50171],
+            'marbacka.txt': [370324],
+            'nils.txt': [1794],
+            'osynliga.txt': [272144]}
+        </pre>
+        <p>The word <i>samlar</i>, for instance, occurs three times in the gosta text at positions
+            313784, 409998, and 538165.
+        </p>
+        <h2>Representing Documents with tf-idf</h2>
+        <p>Once you have created the index, you will represent each document in your corpus as a word vector.
+            You will define the value of a word in a document with the tf-idf
+            metric. Tf will be the relative frequency of the term in the document and idf, the logarithm base 10 of the
+            inverse document
+            frequency.
+        </p>
+        <p>You have below the tf-idf values for a few words. In our example, the word <i>gås</i> has the value
+            0 in bannlyst.txt and the value 0.000101001964 in nils.txt
+        </p>
+        <pre>
+troll.txt
+	känna	 0.0
+	gås	 0.0
+	nils	 2.148161748868631e-06
+	et	 0.0
+kejsaren.txt
+	känna	 0.0
+	gås	 0.0
+	nils	 8.08284798629935e-06
+	et	 8.273225429362848e-05
+marbacka.txt
+	känna	 0.0
+	gås	 0.0
+	nils	 7.582276564686669e-06
+	et	 9.70107989686256e-06
+herrgard.txt
+	känna	 0.0
+	gås	 0.0
+	nils	 0.0
+	et	 0.0
+nils.txt
+	känna	 0.0
+	gås	 0.00010100196417506702
+	nils	 0.00010164426900380124
+	et	 0.0
+osynliga.txt
+	känna	 0.0
+	gås	 0.0
+	nils	 0.0
+	et	 0.0
+jerusalem.txt
+	känna	 0.0
+	gås	 0.0
+	nils	 4.968292117670952e-06
+	et	 0.0
+bannlyst.txt
+	känna	 0.0
+	gås	 0.0
+	nils	 0.0
+	et	 0.0
+gosta.txt
+	känna	 0.0
+	gås	 0.0
+	nils	 0.0
+	et	 0.0
+        </pre>
+        <h2>Comparing Documents</h2>
+        <p>Using the cosine similarity, compare all the pairs of documents with their tfidf representation and present
+            your results in a matrix. You will include this matrix in your report.
+        </p>
+        <p>Give the name of the two novels that are the most similar.</p>
+        <h2>Reading</h2>
+        <p>Read the text:
+            <i>Challenges in Building Large-Scale Information Retrieval Systems</i>
+            about the history of
+            <a href="https://research.google.com/people/jeff/WSDM09-keynote.pdf">Google indexing</a>
+            by
+            <a href="https://research.google.com/pubs/jeff.html">Jeff Dean</a>.
+            In your report, tell how your index encoding is related to what Google did.
+            You must identify the slide where you have the most similar indexing technique and write the
+            slide number in your report.
+        </p>-->
+    </body>
+</html>
