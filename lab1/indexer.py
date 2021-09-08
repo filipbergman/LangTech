@@ -70,12 +70,56 @@ def concordance(word, master_index, window):
 
 # Write your code here
 tfidf = {}
+sizeOfFiles = len(get_files("Selma", ".txt"))
+
 for filename in get_files("Selma", ".txt"):
     f = open('Selma/' + filename, 'r')
-    data = f.read().lower().replace('\n', ' ')
+    data = f.read().lower()
+    regex = '\p{L}+'
+    sizeOfWords = len(re.findall(regex, data))
+    
     for word, occurances in master_index.items():
-        # Regex to count words?
-        tf = len(occurances) / len(master_index[word])
-        idf = math.log10(len(get_files("Selma", ".txt")) / len(master_index[word]))
+        occurancesSize = 0
+        if occurances.get(filename) != None:
+            occurancesSize = len(occurances.get(filename))
+        tf = occurancesSize / sizeOfWords
+        idf = math.log10(sizeOfFiles /  len(master_index[word]))
         comb = tf * idf
-        tfidf.setdefault(word, {})[filename] = comb
+        tfidf.setdefault(filename, {})[word] = comb
+
+
+# Write your code here
+def cosine_similarity(document1, document2):
+    totalUpper = 0
+    l1 = 0
+    l2 = 0
+    totalLower = 0
+    for word in master_index:
+        if document1 in master_index[word] or document2 in master_index[word]:
+            t1 = 0
+            t2 = 0
+            if document1 in master_index[word]:
+                t1 = len(master_index[word][document1])
+                l1 += pow(len(master_index[word][document1]), 2)
+            if document2 in master_index[word]:
+                t2 = len(master_index[word][document2])
+                l2 += pow(len(master_index[word][document2]), 2)
+            totalUpper += t1 * t2
+        totalLower = math.sqrt(l1) * math.sqrt(l2)
+    print(totalUpper / totalLower)
+    
+cosine_similarity('troll.txt', 'nils.txt')
+
+# Write your code here
+maxval = 0
+sim_matrix = ''
+files = get_files('Selma', '.txt')
+print(files)
+for doc in files:
+    sim_matrix += doc + '\t'
+    for other in files:
+        cs = cosine_similarity(doc, other)
+        sim_matrix += str(format(cs, '.4f')) + ' '
+    sim_matrix += '\n'
+    
+print(sim_matrix)
