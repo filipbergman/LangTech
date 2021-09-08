@@ -111,7 +111,9 @@ def cosine_similarity(document1, document2):
 cosine_similarity('troll.txt', 'nils.txt')
 
 # Write your code here
-maxval = 0
+max_similarity = 0
+most_sim_doc1 = ''
+most_sim_doc2 = ''
 sim_matrix = ''
 files = get_files('Selma', '.txt')
 print(files)
@@ -119,6 +121,10 @@ for doc in files:
     sim_matrix += doc + '\t'
     for other in files:
         cs = cosine_similarity(doc, other)
+        if cs > max_similarity and doc != other:
+            max_similarity = cs
+            most_sim_doc1 = doc
+            most_sim_doc2 = other
         sim_matrix += str(format(cs, '.4f')) + ' '
     sim_matrix += '\n'
     
